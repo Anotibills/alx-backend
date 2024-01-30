@@ -1,4 +1,4 @@
-#!?usr/bin/env python3
+#!/usr/bin/env python3
 """
 Implement a method that takes the same arguments and returns a dictionary
 """
