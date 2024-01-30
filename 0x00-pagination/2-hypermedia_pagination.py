@@ -6,7 +6,7 @@ import csv
 from math import ceil
 from typing import List
 
-from simple_helper_function import index_range
+index_range = __import__('0-simple_helper_function').index_range
 
 
 class Server:
