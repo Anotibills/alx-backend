@@ -41,10 +41,7 @@ class Server:
 
         start, end = index_range(page, page_size)
 
-        try:
-            return self._load_dataset()[start:end]
-        except IndexError:
-            return []
+        return self.dataset()[start:end] if start < len(self.dataset()) else []
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
         '''
