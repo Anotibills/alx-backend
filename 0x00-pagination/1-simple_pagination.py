@@ -4,7 +4,8 @@ Implement a method named get_page that takes two integer arguments
 """
 import csv
 from typing import List
-from simple_helper_function import index_range
+
+index_range = __import__('0-simple_helper_function').index_range
 
 
 class Server:
@@ -39,7 +40,4 @@ class Server:
 
         start, end = index_range(page, page_size)
 
-        try:
-            return self.dataset()[start:end]
-        except IndexError:
-            return []
+        return self.dataset()[start:end] if start < len(self.dataset()) else []
