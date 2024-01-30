@@ -48,7 +48,7 @@ class Server:
         This returns dictionary of pagination data.
         '''
         page_data = self.get_page(page, page_size)
-        total_data = len(self._load_dataset())
+        total_data = len(self.dataset())
         total_pages = ceil(total_data / page_size)
 
         return {
