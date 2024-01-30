@@ -32,10 +32,10 @@ class Server:
         '''
         This dataset indexed by sorting position, starting at 0.
         '''
-        if self.__indexed_dataset is None:
-            dataset = self.dataset()
+        if self._indexed_dataset is None:  # Corrected the variable name
+            dataset = self._load_dataset()  # Corrected the method name
             truncated_dataset = dataset[:1000]
-            self.__indexed_dataset = {
+            self._indexed_dataset = {
                 i: dataset[i] for i in range(len(dataset))
             }
         return self._indexed_dataset
