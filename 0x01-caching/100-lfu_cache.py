@@ -50,3 +50,9 @@ class LFUCache(BaseCaching):
                 self.frequency[key] += 1
                 return self.cache_data[key]
         return None
+
+    def update_lfu_queue(self, key):
+        '''
+        This updates LFU queue based on LFU frequencies
+        '''
+        self.queue.sort(key=lambda k: (self.frequency[k], k))
