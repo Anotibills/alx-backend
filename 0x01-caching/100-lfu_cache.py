@@ -3,7 +3,6 @@
 A class LFUCache that inherits from BaseCaching and is a caching system
 """
 from base_caching import BaseCaching
-from collections import defaultdict
 
 
 class LFUCache(BaseCaching):
@@ -16,43 +15,38 @@ class LFUCache(BaseCaching):
         This initializes LFUCache
         '''
         super().__init__()
-        self.frequency = defaultdict(int)
+        self.freq_counter = {}
 
     def put(self, key, item):
         '''
         This assigns the item to the dictionary
         '''
-        if key is not None and item is not None:
-            if len(self.cache_data) >= self.MAX_ITEMS:
-                least_freq_keys = [k for k, v in self.frequency.items()
-                                   if v == min(self.frequency.values())]
-                if len(least_freq_keys) == 1:
-                    discarded_key = least_freq_keys[0]
-                else:
-                    discarded_key = self.order.pop(0)
-                del self.cache_data[discarded_key]
-                del self.frequency[discarded_key]
-                print(f'DISCARD: {discarded_key}')
+        if key is None or item is None:
+            return
+        if key in self.freq_counter:
+            self.freq_counter[key] += 1
+        else:
+            self.freq_counter[key] = 1
+        self.cache_data[key] = item
+        if len(self.cache_data) >= self.MAX_ITEMS:
+            least_freq_keys = [k for k, v in self.frequency.items()
+                               if v == min(self.frequency.values())]
+        if len(lfu_items) > 1:
+            lru_key = min(self.cache_data, key=lambda k: self.cache_data[k]['time'])
+            lfu_items = [lru_item]
 
-            self.cache_data[key] = item
-            self.order = [k for k in self.order if k != key] + [key]
-            # Update the frequency of the current key
-            self.frequency[key] = self.frequency.get(key, 0) + 1
+        for lfu_item in lfu_items:
+            del self.cache_data[lfu_item]
+            del self.freq_counter[lfu_item]
+            print("DISCARD:", lfu_item)
 
     def get(self, key):
         '''
         This returns the value associated with the given key
         '''
-        if key is not None:
-            if key in self.cache_data:
-                self.order = [k for k in self.order if k != key] + [key]
-                # Update the frequency of the current key
-                self.frequency[key] += 1
-                return self.cache_data[key]
-        return None
+        if key is None or key not in self.cache_data:
+            return None
 
-    def update_lfu_queue(self, key):
-        '''
-        This updates LFU queue based on LFU frequencies
-        '''
-        self.queue.sort(key=lambda k: (self.frequency[k], k))
+        self.freq_counter[key] += 1
+
+        return self.cache_data[key]
