@@ -3,6 +3,7 @@
 A class LFUCache that inherits from BaseCaching and is a caching system
 """
 from base_caching import BaseCaching
+from collections import OrderedDict
 
 
 class LFUCache(BaseCaching):
