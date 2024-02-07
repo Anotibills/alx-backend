@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <!-- HEAD -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>{% trans %}home_title{% endtrans %}</title>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <h1>{% trans %}home_header{% endtrans %}</h1>
+      {% if g.user %}
+      <p>{% trans %}logged_in_as{% endtrans %} {{ g.user['name'] }}</p>
+      {% else %}
+      <p>{% trans %}not_logged_in{% endtrans %}</p>
+      {% endif %}
+    </header>
+  </body>
+</html>

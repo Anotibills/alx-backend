@@ -1,0 +1,17 @@
+<html>
+
+<head>
+  <title>{% trans %}home_title{% endtrans %}</title>
+</head>
+
+<body>
+  <h1>{% trans %}home_header{% endtrans %}</h1>
+  {% if g.user %}
+  <p>{% trans %}logged_in_as{% endtrans %} {{ g.user.name }}</p>
+  {% else %}
+  <p>{% trans %}not_logged_in{% endtrans %}</p>
+  {% endif %}
+  <p>{% trans %}current_time_is{% endtrans %} {{ current_time }}</p>
+</body>
+
+</html>
